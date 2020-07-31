@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperatorio</title>
+    <script type= "text/javascript" src="Persona.js"></script>
+    <script type= "text/javascript" src="Cliente.js"></script>
+    <script type= "text/javascript" src="FuncionesHtml.js"></script>
+    <link rel="stylesheet" href="hoja.css"/> 
+</head>
+<body>
+    <div class="mostrar">
+    </div>
+    <br>
+    <label id="txtFiltros"> ABM Personas </label>
+    <div id="filtros">
+        <div id="filtrosSuperior">
+            <label id="lblDatos" for="txtfiltrar">Filtrar por:</label>
+            <select name="tipo" id="txtfiltrar" class="filtrados" > 
+                <option value="Auto">Auto</option>
+                <option value="Camioneta">Camioneta</option>
+            </select>  
+            <label id="lblDatos" for="txtfiltrar">Promdeio de precio:</label>
+            <input type="text" name="promedio" id="txtPromedio" class="filtrados"> 
+            <input type="button" class="btnPromedio" id="btnPromedio" value="Calcular Promedio">
+        </div>
+        <label id="txtCamposMostrados"> Campos mostrados </label>
+        <label id="txtCamposAmostrar"> Tildar los campos a mostrar </label>
+
+        <div id="filtrosInferior">
+            <input type="checkbox" name="cheqId" id="cheqId" value="cheqId"> Id
+            <input type="checkbox" name="cheqMarca" id="cheqMarca" value="cheqMarca"> Marca
+            <input type="checkbox" name="cheqModelo" id="cheqModelo" value="cheqModelo"> Modelo
+            <input type="checkbox" name="cheqPrecio" id="cheqPrecio" value="cheqPrecio"> Precio
+        </div>
+    </div>
+
+    <div id="poderMover">
+
+        <div id="container" >        
+            <div class="bCerrar"> 
+                <label id="lblAlta" for="txtNombre">Alta Vehiculo </label> 
+                <input type="button" id="btnCerrar" value="X">
+                <br>
+            </div>
+            <div>
+                <label id="lblDatos" for="txtId">Id: </label> 
+                <input type="text" name="id" id="txtId" class="recuadro" disabled> 
+            </div>
+            <div> 
+                <label id="lblDatos" for="txtMarca">Marca:</label>
+                <input type="text" name="marca" id="txtMarca" class="recuadro" > 
+            </div>
+            <div> 
+                <label id="lblDatos" for="txtModelo">Modelo:</label>
+                <input type="text" name="modelo" id="txtModelo" class="recuadro" > 
+            </div>
+            <div> 
+                <label id="lblDatos" for="txtPrecio">Precio:</label>
+                <input type="text" name="apellido" id="txtPrecio" class="recuadro" > 
+            </div>
+            <div> 
+                <label id="lblDatos" for="txtTipo">Tipo</label>
+                <select name="tipo" id="txtTipo" class="recuadro" > 
+                    <option value="Auto">Auto</option>
+                    <option value="Camioneta">Camioneta</option>
+                </select>
+            </div>
+            <div id= "auto" > Cantidad de Puertas
+                <input type="number" name="puertas" id="puertas" min="3" max="5"> 
+            </div>
+            <div id="camioneta" hidden="true"> Tu camioneta es Cuatro Por cuatro?
+                <input type="checkbox" name="cuatroX" id="cuatroXcuatro" value="true"> Si
+           </div>
+            <div>
+                <input type="confirm" class= "button" id="btnCerrarDos" value="Cerrar"> 
+                <input type="confirm" class= "button" id="btnAgregar" value="Agregar"> 
+            </div>           
+
+        </div>
+        <br>
+        <label id="txtLista"> Lista de Vehiculos </label>
+        <br>
+        <table id="tabla">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Marca</th>
+                    <th>Modelo</th>
+                    <th>Precio</th>
+                    <th>Accion</th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+                                
+            </tbody>
+        </table>
+    </div>
+    
+</body>
+</html>
