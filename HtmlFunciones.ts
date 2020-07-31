@@ -1,12 +1,15 @@
 namespace general
 {
-    var listaPersonas:Array<Persona> = new Array<Persona>();
+    var listaPersonas:Array<Cliente> = new Array<Cliente>();
     var padre:any;
     window.onload = function()
     {
         document.getElementById("btnAgregar")?.addEventListener("click", agregar);
         document.getElementById("btnEliminar")?.addEventListener("click", eliminar);
+        document.getElementById("btnLimpiar")?.addEventListener("click", limpiar);
+        document.getElementById("btnPromedio")?.addEventListener("click", calcularPromedio);
 
+        
         
         document.getElementById("btnMostrar")?.addEventListener("click",mostraRecuadro);
         document.getElementById("btnCerrar")?.addEventListener("click",cerrarRecuadro);
@@ -111,6 +114,31 @@ namespace general
             listaPersonas.splice(tdBorrado,1);
             padre.remove();
         }
-
     }
+
+    export function limpiar()
+    {
+        listaPersonas = new Array<Cliente>();
+    }
+
+    export function Promesa()
+    {
+        return new Promise((resolve, reject)=>{
+
+            let totalEdad = listaPersonas.reduce(function(total,num){ 
+            return total += num.getEdad()},0);
+            resolve(totalEdad);              
+                  
+          });        
+    }
+
+    export function calcularPromedio()
+    {
+        Promesa().then((response)=>{
+            (<HTMLInputElement>document.getElementById("txtPromedio")).value = (response/listaPersonas.length).toString();
+             
+        });
+    }
+
+
 }

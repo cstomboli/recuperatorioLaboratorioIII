@@ -3,13 +3,15 @@ var general;
     var listaPersonas = new Array();
     var padre;
     window.onload = function () {
-        var _a, _b, _c, _d, _e, _f;
+        var _a, _b, _c, _d, _e, _f, _g, _h;
         (_a = document.getElementById("btnAgregar")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", agregar);
         (_b = document.getElementById("btnEliminar")) === null || _b === void 0 ? void 0 : _b.addEventListener("click", eliminar);
-        (_c = document.getElementById("btnMostrar")) === null || _c === void 0 ? void 0 : _c.addEventListener("click", mostraRecuadro);
-        (_d = document.getElementById("btnCerrar")) === null || _d === void 0 ? void 0 : _d.addEventListener("click", cerrarRecuadro);
-        (_e = document.getElementById("btnCerrarDos")) === null || _e === void 0 ? void 0 : _e.addEventListener("click", cerrarRecuadro);
-        (_f = document.getElementById("txtTipo")) === null || _f === void 0 ? void 0 : _f.addEventListener("change", cantidadPuertas);
+        (_c = document.getElementById("btnLimpiar")) === null || _c === void 0 ? void 0 : _c.addEventListener("click", limpiar);
+        (_d = document.getElementById("btnPromedio")) === null || _d === void 0 ? void 0 : _d.addEventListener("click", calcularPromedio);
+        (_e = document.getElementById("btnMostrar")) === null || _e === void 0 ? void 0 : _e.addEventListener("click", mostraRecuadro);
+        (_f = document.getElementById("btnCerrar")) === null || _f === void 0 ? void 0 : _f.addEventListener("click", cerrarRecuadro);
+        (_g = document.getElementById("btnCerrarDos")) === null || _g === void 0 ? void 0 : _g.addEventListener("click", cerrarRecuadro);
+        (_h = document.getElementById("txtTipo")) === null || _h === void 0 ? void 0 : _h.addEventListener("change", cantidadPuertas);
     };
     function obtenerId() {
         var id = 1;
@@ -90,4 +92,23 @@ var general;
         }
     }
     general.eliminar = eliminar;
+    function limpiar() {
+        listaPersonas = new Array();
+    }
+    general.limpiar = limpiar;
+    function Promesa() {
+        return new Promise(function (resolve, reject) {
+            var totalEdad = listaPersonas.reduce(function (total, num) {
+                return total += num.getEdad();
+            }, 0);
+            resolve(totalEdad);
+        });
+    }
+    general.Promesa = Promesa;
+    function calcularPromedio() {
+        Promesa().then(function (response) {
+            document.getElementById("txtPromedio").value = (response / listaPersonas.length).toString();
+        });
+    }
+    general.calcularPromedio = calcularPromedio;
 })(general || (general = {}));
