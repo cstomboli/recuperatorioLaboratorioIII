@@ -1,89 +1,59 @@
 namespace general
 {
-    var listaVehiculos:Array<Vehiculo> = new Array<Vehiculo>();
-
+    var listaPersonas:Array<Persona> = new Array<Persona>();
+    var padre:any;
     window.onload = function()
     {
+        document.getElementById("btnAgregar")?.addEventListener("click", agregar);
+        document.getElementById("btnEliminar")?.addEventListener("click", eliminar);
+
+        
         document.getElementById("btnMostrar")?.addEventListener("click",mostraRecuadro);
         document.getElementById("btnCerrar")?.addEventListener("click",cerrarRecuadro);
         document.getElementById("btnCerrarDos")?.addEventListener("click",cerrarRecuadro);
         document.getElementById("txtTipo")?.addEventListener("change", cantidadPuertas);
-        document.getElementById("btnAgregar")?.addEventListener("click", agregar);
 
-    }
-
-    export function cantidadPuertas()
-    {
-        var tipoAuto:any = (<HTMLInputElement>document.getElementById("txtTipo")).value;
-
-        if(tipoAuto== "Auto")
-        {
-            (<HTMLInputElement>document.getElementById("auto")).hidden=false;
-            (<HTMLInputElement>document.getElementById("camioneta")).hidden=true;
-        }
-        else
-        {
-            (<HTMLInputElement>document.getElementById("camioneta")).hidden=false;
-            (<HTMLInputElement>document.getElementById("auto")).hidden=true;
-  
-        }      
-    }
-
-    export function cerrarRecuadro()
-    {
-        var container:any = document.getElementById("container");
-        container.hidden=true;
-    }
-
-    export function mostraRecuadro()
-    {
-        var container:any = document.getElementById("container");
-        container.hidden=false;
     }
     
     function obtenerId():number
     {
         var id=1;
-        if(listaVehiculos.length>0)
+        if(listaPersonas.length>0)
         {
-            id = listaVehiculos.reduce((vehiculo, vehiculoProximo)=> vehiculo.id>vehiculoProximo.id ? vehiculoProximo = vehiculo:vehiculoProximo).id +1;
+            id = listaPersonas.reduce((persona, personaProximo)=> persona.id>personaProximo.id ? personaProximo = persona:personaProximo).id +1;
         }
         return id;
     }
 
     export function agregar()
     {
-        var marca:string= (<HTMLInputElement>document.getElementById("txtMarca")).value;
-        var modelo:string=(<HTMLInputElement>document.getElementById("txtModelo")).value;
-        var precio=parseInt((<HTMLInputElement>document.getElementById("txtPrecio")).value);
-        var tipo= (<HTMLInputElement>document.getElementById("txtTipo")).value;
+        var nombre:string= (<HTMLInputElement>document.getElementById("txtNombre")).value;
+        var apellido:string=(<HTMLInputElement>document.getElementById("txtApellido")).value;
+        var edad=parseInt((<HTMLInputElement>document.getElementById("txtEdad")).value);
+        var sexo= (<HTMLSelectElement>document.getElementById("txtTipo")).value;
         var id =obtenerId();
                 
-        if(tipo == "Auto" )// tipo == Auto)
-        {
-            var cantidadPuertas:number = parseInt((<HTMLInputElement>document.getElementById("puertas")).value);
-            
-            var nuevoAuto:Auto = new Auto(id, marca, modelo, precio, cantidadPuertas);
-            listaVehiculos.push(nuevoAuto);            
-            var container:any = document.getElementById("container");
-            container.hidden=true;
-            cargarGrilla((<HTMLTableElement>document.getElementById("tabla")), id, marca, modelo, precio, cantidadPuertas, false);
+        if(sexo == "Femenino" )// tipo == Auto)
+        {           
+            var nuevoCliente:Cliente = new Cliente(id, nombre, apellido, edad, general.Sexo.Femenino);
+            listaPersonas.push(nuevoCliente);            
+            //var container:any = document.getElementById("container");
+            //container.hidden=true;
+            cargarGrilla((<HTMLTableElement>document.getElementById("tabla")), id, nombre, apellido, edad, (general.Sexo.Femenino).toString());
         }
         else 
         {
-            var cuatroXcuatro:boolean = (<HTMLInputElement>document.getElementById("cuatroXcuatro")).checked;
-            var nuevaCamio:Camioneta = new Camioneta(obtenerId(), marca, modelo, precio, cuatroXcuatro);
-            listaVehiculos.push(nuevaCamio);
-            var container:any = document.getElementById("container");
-            container.hidden=true;
-            cargarGrilla((<HTMLTableElement>document.getElementById("tbody")), id, marca, modelo, precio, 0, true);
+            var nuevoCliente:Cliente = new Cliente(id, nombre, apellido, edad, general.Sexo.Masculino);
+            listaPersonas.push(nuevoCliente);
+            //var container:any = document.getElementById("container");
+            //container.hidden=true;
+            cargarGrilla((<HTMLTableElement>document.getElementById("tbody")), id, nombre, apellido, edad, (general.Sexo.Masculino).toString());
     
         }                
     }
 
-    export function cargarGrilla(tabla: HTMLTableElement, id: number, marca: string,
-                                modelo: string, precio: number, cantPuert: number, 
-                                esCuatroXcuatro: boolean): void 
+    export function cargarGrilla(tabla: HTMLTableElement, id: number, nombre: string,
+                                apellido: string, edad: number, sexo: string ): void 
     {
         //cuando cargo la grilla, agrego un button
         var tr= document.createElement("tr");
@@ -95,51 +65,52 @@ namespace general
         //tdId.hidden=true;
        
         var tdNa= document.createElement("td");
-        var txt=document.createTextNode(marca);
+        var txt=document.createTextNode(nombre);
         tdNa.appendChild(txt);
         tr.appendChild(tdNa);
 
         var tdAp= document.createElement("td");
-        var txt=document.createTextNode(modelo);
+        var txt=document.createTextNode(apellido);
         tdAp.appendChild(txt);
         tr.appendChild(tdAp);
 
         var tdPre= document.createElement("td");
-        var txt=document.createTextNode(precio.toString());
+        var txt=document.createTextNode(edad.toString());
         tdPre.appendChild(txt);
         tr.appendChild(tdPre);
 
-        /*
+        
         var tdPue= document.createElement("td");
-        var txt=document.createTextNode(cantPuert.toString());
+        var txt=document.createTextNode(sexo);
         tdPue.appendChild(txt);
-        tr.appendChild(tdPue);
-
-        var tdCua= document.createElement("td");
-        var txt=document.createTextNode(esCuatroXcuatro.toString());
-        tdCua.appendChild(txt);
-        tr.appendChild(tdCua);
-        */
-        var tdElim = document.createElement("td");
-        var btnEliminar = document.createElement("button"); 
-        btnEliminar.textContent="Eliminar";
-        btnEliminar.addEventListener('click',general.eliminar); //Vehiculo.eliminar ver esto       
-        tdElim.appendChild(btnEliminar);              
-        tr.appendChild(tdElim);
-
+        tr.appendChild(tdPue);      
+        
+        tr.addEventListener('click', mostrar);
         tabla.appendChild(tr);  
     }
 
-    export function eliminar(tr: any)
+    export function mostrar(e:any)
     {
-        alert("aprete");
-        var trAborrar = tr.target.parentNode.parentNode;
+        padre= e.target.parentNode;
+        var hijo= padre.childNodes;
+        console.log(padre);
+        (<HTMLInputElement>document.getElementById("txtId")).value= hijo[0].textContent;
+        (<HTMLInputElement>document.getElementById("txtNombre")).value= hijo[1].textContent;
+        (<HTMLInputElement>document.getElementById("txtApellido")).value= hijo[2].textContent;
+        (<HTMLInputElement>document.getElementById("txtEdad")).value= hijo[3].textContent;
+        (<HTMLInputElement>document.getElementById("txtTipo")).value= hijo[4].textContent;  
+    }
+
+    export function eliminar()
+    {
+        var trAborrar = padre;
         var tdBorrado  = trAborrar.childNodes[0].innerHTML;
-        var listaId = listaVehiculos.filter(Vehiculo => Vehiculo.getId()== tdBorrado);
+        var listaId = listaPersonas.filter(Vehiculo => Vehiculo.getId()== tdBorrado);
         if(listaId.length>0)
         {
-            listaVehiculos.splice(tdBorrado,1);
-            tr.target.parentNode.parentNode.remove();
+            listaPersonas.splice(tdBorrado,1);
+            padre.remove();
         }
+
     }
 }

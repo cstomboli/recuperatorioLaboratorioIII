@@ -33,7 +33,7 @@ namespace general
 
     export enum Sexo
     {
-        Femenino,
-        Masculino
+        Femenino = "Femenino",
+        Masculino = "Masculino"
     }
 }
