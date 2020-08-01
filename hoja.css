@@ -97,3 +97,30 @@
     padding-bottom: 8px;
 
 }
+
+#tabla2 {
+    /* z-index: -1; Esto hace que la tabla aparezca por detras*/
+     position: relative; 
+     width: 100%;    
+     border-collapse: collapse;
+     font-weight: normal;
+     font-size: 25px;
+ }
+ 
+ #tabla2 th{
+     text-align: left;
+     color: white;
+     background-color: rgb(21, 117, 124);
+ }
+ 
+ #tabla2 tr:nth-child(even){
+     background-color:#ddd;
+ }
+ 
+ #tabla2 th, td{
+     border:1px solid #ddd;
+     padding: 10px;
+     padding-top: 8px;    
+     padding-bottom: 8px;
+ 
+ }

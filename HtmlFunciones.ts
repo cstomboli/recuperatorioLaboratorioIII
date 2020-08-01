@@ -10,7 +10,9 @@ namespace general
         document.getElementById("btnEliminar")?.addEventListener("click", eliminar);
         document.getElementById("btnLimpiar")?.addEventListener("click", limpiar);
         document.getElementById("btnPromedio")?.addEventListener("click", calcularPromedio);
+        //document.getElementById("txtSexo")?.addEventListener("change", limpiartabla);
         document.getElementById("txtSexo")?.addEventListener("click", filtrarSexo);
+
 
     }
     
@@ -154,7 +156,7 @@ namespace general
 
     export function filtrarSexo()
     {
-        
+        /*
         var nuevaTable = document.createElement("table");
         var thead = document.createElement("thead");
         nuevaTable.appendChild(thead);
@@ -162,8 +164,10 @@ namespace general
         for(var i=0;i<cabeceras.length;i++){
             thead.appendChild(document.createElement("th")).
             appendChild(document.createTextNode(cabeceras[i]));
-        }
+        }*/
         (<HTMLTableElement> document.getElementById("tabla")).hidden=true;
+        var nuevaTable=(<HTMLTableElement> document.getElementById("tabla2"));
+        nuevaTable.hidden=false;
         PromesaSexo().then(function(response){
             var listaPersonas = <Array<Cliente>>response;
             for(var i=0; i<listaPersonas.length; i++ )
@@ -180,9 +184,14 @@ namespace general
             (<HTMLTableElement> document.getElementById("tabla")).hidden=false;
 
         });
-
-
     }
+
+    /*
+    export function limpiartabla()
+    {
+        var nuevaTable=(<HTMLTableElement> document.getElementById("tabla2"));
+        nuevaTable.remove();
+    }*/
 
 
 }
