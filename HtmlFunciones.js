@@ -4,13 +4,16 @@ var general;
     var padre;
     var cabeceras = ["Id", "Nombre", "Apellido", "Edad", "Sexo"];
     window.onload = function () {
-        var _a, _b, _c, _d, _e;
+        var _a, _b, _c, _d, _e, _f;
         (_a = document.getElementById("btnAgregar")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", agregar);
         (_b = document.getElementById("btnEliminar")) === null || _b === void 0 ? void 0 : _b.addEventListener("click", eliminar);
         (_c = document.getElementById("btnLimpiar")) === null || _c === void 0 ? void 0 : _c.addEventListener("click", limpiar);
         (_d = document.getElementById("btnPromedio")) === null || _d === void 0 ? void 0 : _d.addEventListener("click", calcularPromedio);
-        //document.getElementById("txtSexo")?.addEventListener("change", limpiartabla);
-        (_e = document.getElementById("txtSexo")) === null || _e === void 0 ? void 0 : _e.addEventListener("click", filtrarSexo);
+        (_e = document.getElementById("txtSexo")) === null || _e === void 0 ? void 0 : _e.addEventListener("change", filtrarSexo);
+        (_f = document.getElementById("cheqId")) === null || _f === void 0 ? void 0 : _f.addEventListener("click", borarId);
+        //document.getElementById("cheqNombre")?.addEventListener("click", borarNombre);
+        //document.getElementById("cheqEdad")?.addEventListener("click", borarEdad);
+        //document.getElementById("cheqApellido")?.addEventListener("click", borarApellido);
     };
     function obtenerId() {
         var id = 1;
@@ -123,35 +126,32 @@ var general;
     }
     general.PromesaSexo = PromesaSexo;
     function filtrarSexo() {
-        /*
-        var nuevaTable = document.createElement("table");
-        var thead = document.createElement("thead");
-        nuevaTable.appendChild(thead);
-
-        for(var i=0;i<cabeceras.length;i++){
-            thead.appendChild(document.createElement("th")).
-            appendChild(document.createTextNode(cabeceras[i]));
-        }*/
         document.getElementById("tabla").hidden = true;
         var nuevaTable = document.getElementById("tabla2");
         nuevaTable.hidden = false;
         PromesaSexo().then(function (response) {
+            nuevaTable.innerHTML = "";
+            var thead = document.createElement("thead");
+            nuevaTable.appendChild(thead);
+            for (var i = 0; i < cabeceras.length; i++) {
+                thead.appendChild(document.createElement("th")).
+                    appendChild(document.createTextNode(cabeceras[i]));
+            }
             var listaPersonas = response;
             for (var i = 0; i < listaPersonas.length; i++) {
                 cargarGrilla(nuevaTable, listaPersonas[i].getId(), listaPersonas[i].getnombre(), listaPersonas[i].getapellido(), listaPersonas[i].getEdad(), listaPersonas[i].getSexo().toString());
                 console.log(listaPersonas[i]);
             }
-            //nuevaTable.hidden=false;                      
+            nuevaTable.hidden = false;
         })["catch"](function (reject) {
             nuevaTable.hidden = true;
             document.getElementById("tabla").hidden = false;
         });
     }
     general.filtrarSexo = filtrarSexo;
-    /*
-    export function limpiartabla()
-    {
-        var nuevaTable=(<HTMLTableElement> document.getElementById("tabla2"));
-        nuevaTable.remove();
-    }*/
+    function borarId() {
+        var tabla = document.getElementById("tabla");
+        var th = tabla.childNodes[1].childNodes[1].childNodes[1];
+    }
+    general.borarId = borarId;
 })(general || (general = {}));

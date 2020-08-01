@@ -10,8 +10,12 @@ namespace general
         document.getElementById("btnEliminar")?.addEventListener("click", eliminar);
         document.getElementById("btnLimpiar")?.addEventListener("click", limpiar);
         document.getElementById("btnPromedio")?.addEventListener("click", calcularPromedio);
-        //document.getElementById("txtSexo")?.addEventListener("change", limpiartabla);
-        document.getElementById("txtSexo")?.addEventListener("click", filtrarSexo);
+        document.getElementById("txtSexo")?.addEventListener("change", filtrarSexo);
+
+        document.getElementById("cheqId")?.addEventListener("click", borarId);
+        //document.getElementById("cheqNombre")?.addEventListener("click", borarNombre);
+        //document.getElementById("cheqEdad")?.addEventListener("click", borarEdad);
+        //document.getElementById("cheqApellido")?.addEventListener("click", borarApellido);
 
 
     }
@@ -156,19 +160,19 @@ namespace general
 
     export function filtrarSexo()
     {
-        /*
-        var nuevaTable = document.createElement("table");
-        var thead = document.createElement("thead");
+        (<HTMLTableElement> document.getElementById("tabla")).hidden=true;
+        var nuevaTable=(<HTMLTableElement> document.getElementById("tabla2"));
+
+        nuevaTable.hidden=false;
+        PromesaSexo().then(function(response){
+            nuevaTable.innerHTML="";
+            var thead = document.createElement("thead");
         nuevaTable.appendChild(thead);
 
         for(var i=0;i<cabeceras.length;i++){
             thead.appendChild(document.createElement("th")).
             appendChild(document.createTextNode(cabeceras[i]));
-        }*/
-        (<HTMLTableElement> document.getElementById("tabla")).hidden=true;
-        var nuevaTable=(<HTMLTableElement> document.getElementById("tabla2"));
-        nuevaTable.hidden=false;
-        PromesaSexo().then(function(response){
+        }
             var listaPersonas = <Array<Cliente>>response;
             for(var i=0; i<listaPersonas.length; i++ )
             {
@@ -178,7 +182,7 @@ namespace general
                             console.log(listaPersonas[i]); 
             }  
             
-            //nuevaTable.hidden=false;                      
+            nuevaTable.hidden=false;                      
         }).catch(function(reject){
             nuevaTable.hidden=true;
             (<HTMLTableElement> document.getElementById("tabla")).hidden=false;
@@ -186,12 +190,13 @@ namespace general
         });
     }
 
-    /*
-    export function limpiartabla()
+
+    export function borarId()
     {
-        var nuevaTable=(<HTMLTableElement> document.getElementById("tabla2"));
-        nuevaTable.remove();
-    }*/
+        var tabla=(<HTMLTableElement> document.getElementById("tabla"));
+        var th=tabla.childNodes[1].childNodes[1].childNodes[1];
+    }
+
 
 
 }
