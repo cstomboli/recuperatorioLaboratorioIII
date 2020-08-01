@@ -55,7 +55,8 @@
 
         <div id="filtrosSuperior">
             <label id="lblDatos" for="txtfiltrar">Filtrar por:</label>
-            <select name="tipo" id="txtfiltrar" class="filtrados" > 
+            <select name="tipo" id="txtSexo" class="filtrados" > 
+                <option value="Sexo">Sexo</option>
                 <option value="Femenino">Femenino</option>
                 <option value="Masculino">Masculino</option>
             </select>  
@@ -79,6 +80,20 @@
         <label id="txtLista"> Lista de Personas </label>
         <br>
         <table id="tabla">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Edad</th>
+                    <th>Sexo</th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+                                
+            </tbody>
+        </table>
+        <table id="tabla2" hidden=true>
             <thead>
                 <tr>
                     <th>Id</th>

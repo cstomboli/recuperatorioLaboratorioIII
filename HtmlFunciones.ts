@@ -2,19 +2,15 @@ namespace general
 {
     var listaPersonas:Array<Cliente> = new Array<Cliente>();
     var padre:any;
+    var cabeceras = ["Id","Nombre","Apellido","Edad", "Sexo"];
+    
     window.onload = function()
     {
         document.getElementById("btnAgregar")?.addEventListener("click", agregar);
         document.getElementById("btnEliminar")?.addEventListener("click", eliminar);
         document.getElementById("btnLimpiar")?.addEventListener("click", limpiar);
         document.getElementById("btnPromedio")?.addEventListener("click", calcularPromedio);
-
-        
-        
-        document.getElementById("btnMostrar")?.addEventListener("click",mostraRecuadro);
-        document.getElementById("btnCerrar")?.addEventListener("click",cerrarRecuadro);
-        document.getElementById("btnCerrarDos")?.addEventListener("click",cerrarRecuadro);
-        document.getElementById("txtTipo")?.addEventListener("change", cantidadPuertas);
+        document.getElementById("txtSexo")?.addEventListener("click", filtrarSexo);
 
     }
     
@@ -58,7 +54,6 @@ namespace general
     export function cargarGrilla(tabla: HTMLTableElement, id: number, nombre: string,
                                 apellido: string, edad: number, sexo: string ): void 
     {
-        //cuando cargo la grilla, agrego un button
         var tr= document.createElement("tr");
         
         var tdId= document.createElement("td");
@@ -125,7 +120,7 @@ namespace general
     {
         return new Promise((resolve, reject)=>{
 
-            let totalEdad = listaPersonas.reduce(function(total,num){ 
+            let totalEdad:number = listaPersonas.reduce(function(total,num){ 
             return total += num.getEdad()},0);
             resolve(totalEdad);              
                   
@@ -134,10 +129,59 @@ namespace general
 
     export function calcularPromedio()
     {
-        Promesa().then((response)=>{
-            (<HTMLInputElement>document.getElementById("txtPromedio")).value = (response/listaPersonas.length).toString();
+        Promesa().then(function(response){
+            (<HTMLInputElement>document.getElementById("txtPromedio")).value = (<number>response/listaPersonas.length).toString();
              
         });
+    }
+
+    export function PromesaSexo()
+    {
+        var sexo = (<HTMLSelectElement>document.getElementById("txtSexo")).value;
+        return new Promise((resolve, reject)=>{
+
+            if(sexo == "Sexo")
+            {
+                reject(listaPersonas);
+            }
+            else
+            {
+                var listaFiltrada = listaPersonas.filter((persona)=>persona.getSexo() == sexo);
+                resolve(listaFiltrada);
+            }                      
+        });        
+    }
+
+    export function filtrarSexo()
+    {
+        
+        var nuevaTable = document.createElement("table");
+        var thead = document.createElement("thead");
+        nuevaTable.appendChild(thead);
+
+        for(var i=0;i<cabeceras.length;i++){
+            thead.appendChild(document.createElement("th")).
+            appendChild(document.createTextNode(cabeceras[i]));
+        }
+        (<HTMLTableElement> document.getElementById("tabla")).hidden=true;
+        PromesaSexo().then(function(response){
+            var listaPersonas = <Array<Cliente>>response;
+            for(var i=0; i<listaPersonas.length; i++ )
+            {
+                cargarGrilla(nuevaTable, listaPersonas[i].getId(), 
+                            listaPersonas[i].getnombre(), listaPersonas[i].getapellido(), 
+                            listaPersonas[i].getEdad(), listaPersonas[i].getSexo().toString());
+                            console.log(listaPersonas[i]); 
+            }  
+            
+            //nuevaTable.hidden=false;                      
+        }).catch(function(reject){
+            nuevaTable.hidden=true;
+            (<HTMLTableElement> document.getElementById("tabla")).hidden=false;
+
+        });
+
+
     }
 
 
