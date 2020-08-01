@@ -4,16 +4,16 @@ var general;
     var padre;
     var cabeceras = ["Id", "Nombre", "Apellido", "Edad", "Sexo"];
     window.onload = function () {
-        var _a, _b, _c, _d, _e, _f;
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j;
         (_a = document.getElementById("btnAgregar")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", agregar);
         (_b = document.getElementById("btnEliminar")) === null || _b === void 0 ? void 0 : _b.addEventListener("click", eliminar);
         (_c = document.getElementById("btnLimpiar")) === null || _c === void 0 ? void 0 : _c.addEventListener("click", limpiar);
         (_d = document.getElementById("btnPromedio")) === null || _d === void 0 ? void 0 : _d.addEventListener("click", calcularPromedio);
         (_e = document.getElementById("txtSexo")) === null || _e === void 0 ? void 0 : _e.addEventListener("change", filtrarSexo);
         (_f = document.getElementById("cheqId")) === null || _f === void 0 ? void 0 : _f.addEventListener("click", borarId);
-        //document.getElementById("cheqNombre")?.addEventListener("click", borarNombre);
-        //document.getElementById("cheqEdad")?.addEventListener("click", borarEdad);
-        //document.getElementById("cheqApellido")?.addEventListener("click", borarApellido);
+        (_g = document.getElementById("cheqNombre")) === null || _g === void 0 ? void 0 : _g.addEventListener("click", borarNombre);
+        (_h = document.getElementById("cheqEdad")) === null || _h === void 0 ? void 0 : _h.addEventListener("click", borarEdad);
+        (_j = document.getElementById("cheqApellido")) === null || _j === void 0 ? void 0 : _j.addEventListener("click", borarApellido);
     };
     function obtenerId() {
         var id = 1;
@@ -152,6 +152,25 @@ var general;
     function borarId() {
         var tabla = document.getElementById("tabla");
         var th = tabla.childNodes[1].childNodes[1].childNodes[1];
+        //th.remove(); //Si no esta chequeado lo borro, falta ver si esta chequeado
     }
     general.borarId = borarId;
+    function borarNombre() {
+        var tabla = document.getElementById("tabla");
+        var th = tabla.childNodes[1].childNodes[1].childNodes[1];
+        th.remove();
+    }
+    general.borarNombre = borarNombre;
+    function borarEdad() {
+        var tabla = document.getElementById("tabla");
+        var th = tabla.childNodes[1].childNodes[1].childNodes[1];
+        th.remove();
+    }
+    general.borarEdad = borarEdad;
+    function borarSexo() {
+        var tabla = document.getElementById("tabla");
+        var th = tabla.childNodes[1].childNodes[1].childNodes[1]; //ver el ultimo child
+        th.remove();
+    }
+    general.borarSexo = borarSexo;
 })(general || (general = {}));

@@ -13,9 +13,9 @@ namespace general
         document.getElementById("txtSexo")?.addEventListener("change", filtrarSexo);
 
         document.getElementById("cheqId")?.addEventListener("click", borarId);
-        //document.getElementById("cheqNombre")?.addEventListener("click", borarNombre);
-        //document.getElementById("cheqEdad")?.addEventListener("click", borarEdad);
-        //document.getElementById("cheqApellido")?.addEventListener("click", borarApellido);
+        document.getElementById("cheqNombre")?.addEventListener("click", borarNombre);
+        document.getElementById("cheqEdad")?.addEventListener("click", borarEdad);
+        document.getElementById("cheqApellido")?.addEventListener("click", borarApellido);
 
 
     }
@@ -195,6 +195,25 @@ namespace general
     {
         var tabla=(<HTMLTableElement> document.getElementById("tabla"));
         var th=tabla.childNodes[1].childNodes[1].childNodes[1];
+        //th.remove(); //Si no esta chequeado lo borro, falta ver si esta chequeado
+    }
+    export function borarNombre()
+    {
+        var tabla=(<HTMLTableElement> document.getElementById("tabla"));
+        var th=tabla.childNodes[1].childNodes[1].childNodes[1];
+        th.remove();
+    }
+    export function borarEdad()
+    {
+        var tabla=(<HTMLTableElement> document.getElementById("tabla"));
+        var th=tabla.childNodes[1].childNodes[1].childNodes[1];
+        th.remove();
+    }
+    export function borarSexo()
+    {
+        var tabla=(<HTMLTableElement> document.getElementById("tabla"));
+        var th=tabla.childNodes[1].childNodes[1].childNodes[1]; //ver el ultimo child
+        th.remove();
     }
 
 
